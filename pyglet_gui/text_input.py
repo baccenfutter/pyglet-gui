@@ -76,9 +76,13 @@ class TextInput(FocusMixin, Viewer):
 
     def unload_graphics(self):
         if not self.is_focus():
-            self._caret.delete()
+            # self._caret may be set to None
+            if self._caret:
+                self._caret.delete()
             self._document.remove_handlers(self._text_layout)
-            self._text_layout.delete()
+            # self._text_layout may be set to None
+            if self._text_layout:
+                self._text_layout.delete()
         else:
             self._label.delete()
 
